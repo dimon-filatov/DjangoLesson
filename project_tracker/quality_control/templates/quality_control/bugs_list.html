@@ -5,6 +5,9 @@
 
 {% block content %}
 <h1>Cписок отчетов об ошибках</h1>
+
+
+
 <ul>
     {% for bug in bugs_list %}
     <li><a href="{% url 'quality_control:bug_detail' bug.id %}">{{ bug.title }}</a> - {{ bug.status }}</li>

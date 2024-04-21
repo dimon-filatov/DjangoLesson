@@ -31,6 +31,32 @@ def feature_id_detail(request, feature_id):
     return HttpResponse(f"Детали улучшения {feature_id}")
 
 
+from .forms import BugReportForm, FeatureRequestForm
+from django.shortcuts import render, redirect
+
+
+def create_bug_report(request):
+    if request.method == 'POST':
+        form = BugReportForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('quality_control:bugs')
+    else:
+        form = BugReportForm()
+    return render(request, 'quality_control/bug_report_create.html', {'form': form})
+
+
+def create_features(request):
+    if request.method == 'POST':
+        form = FeatureRequestForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('quality_control:features')
+    else:
+        form = FeatureRequestForm()
+    return render(request, 'quality_control/feature_request_form.html', {'form': form})
+
+
 from django.views import View
 
 
